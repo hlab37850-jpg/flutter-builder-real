@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مساحة العمل — Mahani Builder AI</title>
+<meta name="description" content="ولّد مشروع تطبيقك من وصف نصي بالعربية، عدّل الكود مباشرة، عاين النتيجة حيًّا، وصدّرها كملفات ويب أو Flutter أو ارفعها مباشرة إلى GitHub.">
+<meta name="theme-color" content="#0B1E33">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+
+<div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+<header class="ws-header">
+  <a href="index.html" class="ws-logo">
+    <span class="logo-mark">مب</span>
+    <span class="logo-text">Mahani <span class="dim">Builder</span></span>
+  </a>
+  <h1 class="ws-title">مساحة العمل</h1>
+  <div class="ws-actions">
+    <button id="export-btn" class="btn btn-ghost" disabled>⬇ تصدير المشروع (ZIP)</button>
+    <button id="github-btn" class="btn btn-ghost" disabled>🔗 رفع إلى GitHub</button>
+    <button id="account-btn" class="btn btn-ghost">👤 الحساب</button>
+    <a href="index.html" class="btn btn-text">الرئيسية</a>
+  </div>
+</header>
+
+<!-- ACCOUNT / CLOUD SYNC PANEL (Firebase — يعمل فقط بعد ربط مشروع Firebase حقيقي، راجع firebase/README.md) -->
+<section class="github-panel" id="account-panel" hidden>
+  <div class="github-panel-inner">
+    <div class="github-panel-head">
+      <h3>الحساب وسجل المشاريع السحابي</h3>
+      <button id="account-close" class="btn-mini" title="إغلاق">✕</button>
+    </div>
+
+    <div id="account-not-configured" class="ai-note">
+      ميزة الحسابات وسجل المشاريع تحتاج ربط مشروع Firebase حقيقي أولًا.
+      راجع <code>firebase/README.md</code> في الملفات المصدّرة لخطوات الإعداد (~١٥ دقيقة، مجاني).
+    </div>
+
+    <div id="account-configured" hidden>
+      <div id="auth-signed-out">
+        <div class="github-fields">
+          <label>البريد الإلكتروني
+            <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="off">
+          </label>
+          <label>كلمة المرور
+            <input type="password" id="auth-password" placeholder="••••••••" autocomplete="off">
+          </label>
+        </div>
+        <div class="auth-actions">
+          <button id="auth-signin-btn" class="btn btn-primary">دخول</button>
+          <button id="auth-signup-btn" class="btn btn-ghost">إنشاء حساب جديد</button>
+        </div>
+        <div class="gen-log" id="auth-log" aria-live="polite"></div>
+      </div>
+
+      <div id="auth-signed-in" hidden>
+        <p class="ai-note">
+          مسجّل الدخول باسم <strong id="auth-user-email"></strong>
+          <button id="auth-signout-btn" class="btn-mini" style="margin-inline-start:10px">خروج</button>
+        </p>
+        <button id="save-project-btn" class="btn btn-primary btn-block" disabled>💾 حفظ المشروع الحالي في سجلي</button>
+        <h4 class="mono" style="margin-top:16px; color:var(--text-dimmer); font-size:0.78rem;">مشاريعي المحفوظة</h4>
+        <ul class="diagnostics-list" id="project-history-list">
+          <li class="diag-empty">لا توجد مشاريع محفوظة بعد.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GITHUB DEPLOY PANEL -->
+<section class="github-panel" id="github-panel" hidden>
+  <div class="github-panel-inner">
+    <div class="github-panel-head">
+      <h3>الرفع المباشر إلى GitHub</h3>
+      <button id="github-close" class="btn-mini" title="إغلاق">✕</button>
+    </div>
+
+    <p class="github-note">
+      يرفع الملفات مباشرة إلى مستودعك عبر GitHub API من متصفحك — لا يمرّ الرمز (Token) عبر أي خادم آخر.
+      تحتاج
+      <a href="https://github.com/settings/tokens/new?scopes=repo,workflow&description=Mahani%20Builder" target="_blank" rel="noopener">Personal Access Token</a>
+      بصلاحية <code>repo</code> و<code>workflow</code>.
+    </p>
+
+    <div class="github-fields">
+      <label>Token
+        <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
+      </label>
+      <label>اسم المستخدم / المؤسسة
+        <input type="text" id="gh-owner" placeholder="mygithubuser" autocomplete="off">
+      </label>
+      <label>اسم المستودع
+        <input type="text" id="gh-repo" placeholder="mahani-app" autocomplete="off">
+      </label>
+      <label class="gh-checkbox">
+        <input type="checkbox" id="gh-private">
+        مستودع خاص (Private)
+      </label>
+    </div>
+
+    <button id="github-upload-btn" class="btn btn-primary">🚀 ابدأ الرفع</button>
+
+    <div class="gen-log" id="github-log" aria-live="polite"></div>
+  </div>
+</section>
+
+<main class="ws-layout">
+
+  <!-- IDEA / GENERATION PANEL -->
+  <section class="panel idea-panel">
+    <h2 class="panel-title">١. صف فكرتك</h2>
+    <textarea id="idea-input" rows="5" placeholder="مثال: أريد تطبيق إدارة محل مواد بناء مع العملاء والمخزون والفواتير">أنشئ تطبيق متابعة ديون العملاء للمحلات مع المخزون والتقارير</textarea>
+
+    <div class="chip-row" id="example-chips">
+      <button class="chip" data-idea="أريد تطبيق إدارة محل لبيع مواد البناء مع العملاء والمخزون والفواتير">محل مواد بناء</button>
+      <button class="chip" data-idea="أنشئ تطبيق متابعة ديون العملاء للمحلات">متابعة ديون</button>
+      <button class="chip" data-idea="أريد نظام فواتير ومدفوعات مع تقارير شهرية">فواتير ومدفوعات</button>
+    </div>
+
+    <button id="generate-btn" class="btn btn-primary btn-block">🚀 إنشاء المشروع (محرك سريع)</button>
+    <p class="kbd-hint">اختصار: <kbd>Ctrl</kbd> + <kbd>Enter</kbd> للإنشاء السريع</p>
+
+    <div class="gen-log" id="gen-log" aria-live="polite"></div>
+
+    <div class="ai-real-block">
+      <button class="ai-toggle" id="ai-toggle" aria-expanded="false">🧠 توليد حقيقي بذكاء اصطناعي (اختياري) ▾</button>
+      <div class="ai-real-panel" id="ai-real-panel" hidden>
+        <p class="ai-note">
+          يتصل مباشرة بنموذج Claude الحقيقي عبر Anthropic API من متصفحك — لا خادم وسيط.
+          يحتاج <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">مفتاح API</a> خاص بك، وتُحتسب التكلفة على حسابك في Anthropic حسب الاستخدام.
+        </p>
+        <label class="ai-field">Anthropic API Key
+          <input type="password" id="ai-key" placeholder="sk-ant-xxxxxxxx" autocomplete="off">
+        </label>
+        <label class="ai-field">اسم النموذج
+          <input type="text" id="ai-model" value="claude-sonnet-4-5" autocomplete="off">
+        </label>
+        <button id="ai-generate-btn" class="btn btn-primary btn-block">🧠 ولّد بالذكاء الاصطناعي الحقيقي</button>
+
+        <div id="cloud-ai-block" hidden>
+          <p class="ai-note" style="margin-top:10px">
+            بديل أكثر أمانًا: يستخدم دالة Firebase السحابية بدل مفتاحك الشخصي — المفتاح لا يظهر أبدًا في متصفحك. يتطلب تسجيل الدخول من قسم "👤 الحساب".
+          </p>
+          <button id="cloud-ai-generate-btn" class="btn btn-ghost btn-block">☁️ توليد آمن عبر السحابة</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILES + EDITOR -->
+  <section class="panel editor-panel">
+    <div class="editor-head">
+      <h2 class="panel-title">٢. الملفات والتحرير</h2>
+      <button id="new-file-btn" class="btn btn-mini" title="إضافة ملف جديد">+ ملف</button>
+    </div>
+
+    <div class="file-tabs-row">
+      <input type="text" id="file-search" class="file-search" placeholder="🔍 بحث في الملفات… (Ctrl+K)" disabled>
+    </div>
+    <div class="file-tabs" id="file-tabs">
+      <p class="empty-hint">لم يُنشأ أي مشروع بعد — صف فكرتك واضغط "إنشاء المشروع".</p>
+    </div>
+
+    <div class="editor-wrap" id="editor-wrap">
+      <div class="editor-gutter" id="editor-gutter"></div>
+      <textarea id="code-editor" class="code-editor" spellcheck="false" disabled placeholder="سيظهر الكود هنا بعد إنشاء المشروع"></textarea>
+      <div class="editor-skeleton" id="editor-skeleton" hidden>
+        <div class="skel-line" style="width:70%"></div>
+        <div class="skel-line" style="width:90%"></div>
+        <div class="skel-line" style="width:55%"></div>
+        <div class="skel-line" style="width:80%"></div>
+        <div class="skel-line" style="width:40%"></div>
+      </div>
+    </div>
+
+    <div class="diagnostics" id="diagnostics">
+      <div class="diagnostics-head">
+        <span class="diagnostics-title">المشاكل <span class="diag-badge" id="diag-count">0</span></span>
+        <button id="fix-all-btn" class="btn-mini" disabled>🩹 إصلاح الكل</button>
+      </div>
+      <ul class="diagnostics-list" id="diagnostics-list">
+        <li class="diag-empty">لا توجد مشاكل — أنشئ مشروعًا أولًا أو عدّل الكود ليبدأ الفحص التلقائي.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PREVIEW -->
+  <section class="panel preview-panel">
+    <div class="editor-head">
+      <h2 class="panel-title">٣. المعاينة الحية</h2>
+      <button id="refresh-btn" class="btn btn-mini" title="تحديث المعاينة">⟳ تحديث</button>
+    </div>
+    <div class="preview-frame-wrap" id="preview-wrap">
+      <iframe id="preview-frame" title="معاينة التطبيق" sandbox="allow-scripts"></iframe>
+      <div class="preview-skeleton" id="preview-skeleton" hidden>
+        <div class="skel-block" style="height:34px;width:60%"></div>
+        <div class="skel-block" style="height:90px"></div>
+        <div class="skel-row">
+          <div class="skel-block" style="height:60px"></div>
+          <div class="skel-block" style="height:60px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/acorn/8.11.3/acorn.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="workspace.js"></script>
+<script src="firebase-integration.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // كل مستخدم يقرأ ويكتب مشاريعه الخاصة فقط
+    match /users/{userId}/projects/{projectId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // منع أي وصول آخر افتراضيًا
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
