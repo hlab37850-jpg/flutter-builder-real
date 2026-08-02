@@ -1,317 +1,56 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mahani Builder AI — من الوصف إلى المشروع</title>
-<meta name="description" content="اكتب فكرة تطبيقك أو موقعك بلغتك العربية الطبيعية، ودع Mahani Builder AI يحلّلها ويبني لك مشروعًا برمجيًا كاملاً: صفحات، تصميم، أكواد، ونسخة Web وPWA وFlutter.">
-<meta name="theme-color" content="#0B1E33">
-<link rel="canonical" href="./index.html">
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>تطبيقي</title>
+<style>
+:root{--brand:#8b5cf6;--bg:#f6f7fb}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Tahoma;background:var(--bg)}
+.header{background:var(--brand);color:#fff;padding:16px;display:flex;justify-content:space-between}
+.nav{display:flex;gap:6px;padding:12px;background:#fff;border-bottom:1px solid #e5e7eb;overflow:auto}
+.nav button{border:none;background:#f3f4f6;padding:8px 14px;border-radius:8px;cursor:pointer}
+.nav button.active{background:var(--brand);color:#fff}
+.view{display:none;padding:20px}.view.active{display:block}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin-bottom:12px}
+</style></head><body>
+<div class="header"><b>تطبيقي</b><button onclick="localStorage.clear();location.reload()">خروج</button></div>
+<div class="nav">
+<button class="active" data-t="dashboard">الرئيسية</button>
+<button data-t="customers">العملاء</button><button data-t="inventory">المخزون</button><button data-t="suppliers">الموردين</button><button data-t="invoices">الفواتير</button><button data-t="debts">الديون</button><button data-t="payments">الدفعات</button><button data-t="reports">التقارير</button>
+</div>
+<div id="dashboard" class="view active"><h2>لوحة التحكم - تطبيقي</h2><p>المواصفات الكاملة للتطبيق
 
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mahani Builder AI — من الوصف إلى المشروع">
-<meta property="og:description" content="اكتب فكرتك بلغتك العربية، ودع الذكاء الاصطناعي يبني لك مشروعًا برمجيًا كاملاً جاهزًا للتعديل والتصدير.">
-<meta property="og:image" content="./og-image.png">
-<meta property="og:locale" content="ar_AR">
+أريد تطوير تطبيق أندرويد احترافي ومتطور مخصص لإدارة العملاء، والأرصدة، والأصناف، والمخزون، ومواعيد الاستحقاق، والتنبيهات الذكية، مع الاعتماد على الاستيراد المباشر من قواعد بيانات برامج المحاسبة أو ملفات الاستيراد، دون أن يكون التطبيق نظام مبيعات أو مشتريات. الهدف الأساسي هو متابعة العملاء والمخزون وتحديث البيانات بسهولة، مع الحفاظ على دقة المعلومات وسرعة الأداء.
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mahani Builder AI — من الوصف إلى المشروع">
-<meta name="twitter:description" content="اكتب فكرتك بلغتك العربية، ودع الذكاء الاصطناعي يبني لك مشروعًا برمجيًا كاملاً.">
-<meta name="twitter:image" content="./og-image.png">
+يحتوي التطبيق على إدارة متكاملة للعملاء تشمل حفظ اسم العميل، ورقم الهاتف، والعنوان، والملاحظات، والعملة، والرصيد الحالي، وحالة العميل. يعتمد التطبيق دائماً على الرصيد الحالي فقط، فعند استيراد بيانات جديدة يتم استبدال الرصيد السابق بالرصيد الحالي الموجود في المصدر دون تسجيل دفعات أو إنشاء قيود محاسبية أو عمليات بيع وشراء. كما يجب التمييز بين العملاء الذين عليهم مبالغ والعملاء الذين لهم مبالغ، مع الحفاظ على القيم كما هي دون تصفير أو تغيير للإشارة.
 
-<!-- Favicons -->
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" href="favicon-32.png" type="image/png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.json">
+يدعم التطبيق إدارة الأصناف والمخزون، بحيث يتم حفظ اسم الصنف كاملاً دون حذف أي حرف أو رقم أو رمز، مع التصنيف، والوحدة، والكمية الحالية، والحد الأدنى للمخزون، وحد إعادة الطلب، والملاحظات. ويعرض تنبيهات عند انخفاض المخزون أو نفاده، مع لوحة تعرض الأصناف الناقصة والمنتهية.
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Tajawal:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+يوفر التطبيق نظام مواعيد استحقاق متقدم، بحيث يمكن تحديد التاريخ والوقت لكل عميل، ويرسل تنبيهات قبل الموعد بيوم، وفي يوم الاستحقاق، وبعده وفق إعدادات المستخدم. وإذا انتهى موعد الاستحقاق ولم يتم تحديث الرصيد، ينتقل العميل تلقائياً إلى قائمة العملاء المنسيين حتى تتم متابعته. كما تحتوي رسائل التذكير على بيانات المحل (الاسم، الشعار، العنوان، وأرقام التواصل) التي يتم حفظها في إعدادات التطبيق.
 
-<a href="#main-content" class="skip-link">تخطَّ إلى المحتوى</a>
+تحتوي الإعدادات على بيانات المحل، وتشمل اسم المحل، والشعار، والعنوان، وأرقام التواصل، ورسائل التذكير الافتراضية، وأوقات التنبيهات، وإعدادات النسخ الاحتياطي، وإعدادات الاستيراد، بحيث تستخدم هذه البيانات تلقائياً في الرسائل والتقارير.
 
-<div class="blueprint-grid" aria-hidden="true"></div>
+يعتمد التطبيق على محرك استيراد ذكي (Smart Import Engine) يدعم عدة مصادر للاستيراد بالترتيب: قاعدة بيانات برنامج المحاسب أو النسخة الاحتياطية، ثم ملفات Excel، ثم CSV، ثم PDF كخيار احتياطي. عند توفر قاعدة بيانات برنامج المحاسب أو ملف DB، يقوم التطبيق بقراءة الجداول وتحليلها واستخراج العملاء والأصناف والمخزون فقط، مع تجاهل المبيعات، والمشتريات، والفواتير، وسندات القبض والصرف، والقيود المحاسبية، وأي بيانات تشغيلية أخرى.
 
-<header class="site-header">
-  <div class="wrap header-inner">
-    <div class="logo">
-      <span class="logo-mark">مب</span>
-      <span class="logo-text">Mahani <span class="dim">Builder</span> <span class="ltr mono">AI</span></span>
-    </div>
-    <nav class="site-nav" id="site-nav">
-      <a href="#how">كيف يعمل</a>
-      <a href="#features">الإمكانيات</a>
-      <a href="#example">مثال</a>
-      <a href="#faq">الأسئلة الشائعة</a>
-      <a href="#acode">مقابل Acode</a>
-    </nav>
-    <a href="workspace.html" class="btn btn-ghost header-cta">ابدأ الآن</a>
-    <button class="menu-toggle" id="menu-toggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobile-nav">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <nav class="mobile-nav" id="mobile-nav" hidden>
-    <a href="#how">كيف يعمل</a>
-    <a href="#features">الإمكانيات</a>
-    <a href="#example">مثال</a>
-    <a href="#faq">الأسئلة الشائعة</a>
-    <a href="#acode">مقابل Acode</a>
-    <a href="workspace.html" class="btn btn-primary">ابدأ الآن</a>
-  </nav>
-</header>
+إذا تم الاستيراد من PDF، يقوم التطبيق بقراءة الملف كاملاً، وإزالة بيانات رأس الصفحة (Header) وتذييل الصفحة (Footer)، واسم المحل، والعنوان، وأرقام الهواتف، ورؤوس الجداول، وصفوف الإجماليات، ثم يحول الجداول إلى نموذج بيانات منظم لتحليلها بدقة. يجب أن يعتمد الاستيراد على مبدأ عدم فقدان البيانات (Lossless Import)، بحيث لا يتم حذف أي حرف أو رقم أو رمز أو مقاس أو وحدة من أسماء العملاء أو الأصناف، مع الحفاظ على النصوص الأصلية كما هي. كما يجب أن يتعرف التطبيق تلقائياً على أعمدة (له، عليه، مدين، دائن، الرصيد، المتبقي)، وأن يحافظ على الأرصدة كما هي دون تصفير أو تغيير للإشارة، مع منع استيراد صفوف الإجماليات أو بيانات المحل كسجلات، ومنع إنشاء عملاء أو أصناف مكررة.
 
-<main id="main-content">
+قبل تنفيذ أي عملية استيراد، يعرض التطبيق شاشة مراجعة توضح عدد العملاء والأصناف التي سيتم إضافتها أو تحديثها، وعدد السجلات المكررة أو التي تحتاج إلى مراجعة، مع إمكانية تعديل أي قيمة يدوياً. كما ينشئ نسخة احتياطية تلقائية قبل الاستيراد، ويتيح التراجع عن آخر عملية استيراد، ويعرض تقريراً مفصلاً بعد الانتهاء.
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="tag-dot"></span> من فكرة منطوقة إلى مشروع جاهز</p>
-        <h1>اكتب فكرتك بكلماتك…<br>ودعها <span class="accent">تُبنى</span> أمامك.</h1>
-        <p class="lede">تصف تطبيقك أو موقعك بلغتك العربية الطبيعية، ومحرّك Mahani Builder يحلّل الفكرة، يخطّط الهيكل، يصمّم الواجهات، ويكتب الأكواد — مشروع كامل جاهز للفتح والتعديل.</p>
-        <div class="hero-actions">
-          <a href="#example" class="btn btn-primary">شاهد كيف يُبنى تطبيق حقيقي</a>
-          <a href="#how" class="btn btn-text">كيف يعمل ↓</a>
-        </div>
-      </div>
+يتعلم التطبيق من كل عملية استيراد، ويحفظ طريقة تحليل الملفات القادمة من نفس البرنامج المحاسبي، كما يحفظ التصحيحات التي يجريها المستخدم، ويستخدمها لتحسين دقة الاستيراد مستقبلاً.
 
-      <div class="hero-stage" aria-hidden="true">
-        <div class="prompt-panel">
-          <div class="panel-head">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="panel-label mono">وصف الفكرة</span>
-          </div>
-          <div class="prompt-line">
-            <span id="typed-text"></span><span class="caret">|</span>
-          </div>
-        </div>
+يوفر التطبيق لوحة تحكم احترافية تعرض عدد العملاء، وإجمالي الأرصدة، والعملاء المستحقين اليوم، والعملاء المتأخرين، والعملاء المنسيين، وعدد الأصناف، والأصناف الناقصة، وآخر عمليات الاستيراد، وآخر التنبيهات، مع إمكانية البحث والتصفية حسب الاسم، أو الهاتف، أو الرصيد، أو الصنف، أو التصنيف، أو التاريخ، أو حالة العميل.
 
-        <div class="blueprint-reveal">
-          <svg viewBox="0 0 420 300" class="bp-svg" id="bp-svg">
-            <!-- corner crosshairs -->
-            <g class="crosshair" transform="translate(10,10)"><path d="M0 10 L0 0 L10 0"/></g>
-            <g class="crosshair" transform="translate(410,10) scale(-1,1)"><path d="M0 10 L0 0 L10 0"/></g>
-            <g class="crosshair" transform="translate(10,290) scale(1,-1)"><path d="M0 10 L0 0 L10 0"/></g>
-            <g class="crosshair" transform="translate(410,290) scale(-1,-1)"><path d="M0 10 L0 0 L10 0"/></g>
+يسجل التطبيق جميع عمليات الإضافة، والتعديل، والاستيراد، مع سجل يوضح تغير رصيد العميل بين كل تحديث وآخر دون اعتباره عملية سداد. كما يوفر نسخاً احتياطية تلقائية، واستعادة للبيانات، وقفل التطبيق بكلمة مرور أو بصمة إذا كان الجهاز يدعم ذلك.
 
-            <!-- screen 1: login -->
-            <rect class="bp-shape" data-order="1" x="28" y="30" width="100" height="150" rx="4"/>
-            <line class="bp-shape" data-order="1" x1="48" y1="60" x2="108" y2="60"/>
-            <line class="bp-shape" data-order="1" x1="48" y1="80" x2="108" y2="80"/>
-            <rect class="bp-shape" data-order="1" x="48" y="100" width="60" height="14" rx="3"/>
-            <text class="bp-label mono" data-order="1" x="78" y="200" text-anchor="middle">تسجيل الدخول</text>
+إضافة الذكاء الاصطناعي:
 
-            <!-- connector -->
-            <line class="bp-connector" data-order="2" x1="128" y1="105" x2="168" y2="105" stroke-dasharray="4 4"/>
+يجب أن يحتوي التطبيق على مساعد ذكاء اصطناعي مدمج، وليس مجرد روبوت محادثة، بل نظام يساعد في جميع أجزاء التطبيق. يقوم الذكاء الاصطناعي بتحليل ملفات الاستيراد قبل تنفيذها، واكتشاف الأخطاء، واقتراح أفضل طريقة للاستيراد، والتعرف على نوع الملف ومصدره، والتأكد من عدم حذف أي بيانات أو أحرف أو أرقام أو رموز، واكتشاف العملاء أو الأصناف المكررة، ومنع استيراد بيانات المحل أو صفوف الإجماليات، واكتشاف أي رصيد تم تفسيره بشكل خاطئ.
 
-            <!-- screen 2: dashboard -->
-            <rect class="bp-shape" data-order="2" x="168" y="30" width="130" height="150" rx="4"/>
-            <rect class="bp-shape" data-order="2" x="182" y="46" width="102" height="24" rx="3"/>
-            <rect class="bp-shape" data-order="2" x="182" y="80" width="46" height="40" rx="3"/>
-            <rect class="bp-shape" data-order="2" x="238" y="80" width="46" height="40" rx="3"/>
-            <rect class="bp-shape" data-order="2" x="182" y="130" width="102" height="34" rx="3"/>
-            <text class="bp-label mono" data-order="2" x="233" y="200" text-anchor="middle">لوحة التحكم</text>
+كما يستطيع المستخدم التحدث مع المساعد باللغة العربية وطلب أوامر مثل: عرض العملاء المتأخرين، أو العملاء الذين لهم أرصدة، أو الأصناف الناقصة، أو إنشاء تقرير، أو البحث عن عميل أو صنف، أو تحليل ملف قبل استيراده. وينفذ المساعد هذه المهام مباشرة داخل التطبيق.
 
-            <!-- connector -->
-            <line class="bp-connector" data-order="3" x1="298" y1="105" x2="338" y2="105" stroke-dasharray="4 4"/>
+يقوم الذكاء الاصطناعي أيضاً بتحليل العملاء واقتراح أولويات المتابعة، وتحليل المخزون والتنبيه إلى الأصناف التي أوشكت على النفاد، وإنشاء رسائل تذكير احترافية، وإنشاء تقارير PDF وExcel، والتعلم من استخدام المستخدم لتحسين الأداء مع مرور الوقت. ويجب أن يحافظ على خصوصية البيانات، وألا يرسل أي بيانات خارج الجهاز إلا إذا وافق المستخدم صراحة على ذلك.
 
-            <!-- screen 3: customers list -->
-            <rect class="bp-shape" data-order="3" x="338" y="30" width="70" height="150" rx="4"/>
-            <line class="bp-shape" data-order="3" x1="348" y1="52" x2="398" y2="52"/>
-            <line class="bp-shape" data-order="3" x1="348" y1="70" x2="398" y2="70"/>
-            <line class="bp-shape" data-order="3" x1="348" y1="88" x2="398" y2="88"/>
-            <line class="bp-shape" data-order="3" x1="348" y1="106" x2="398" y2="106"/>
-            <text class="bp-label mono" data-order="3" x="373" y="200" text-anchor="middle">العملاء</text>
-
-            <text class="bp-scale mono" x="210" y="270" text-anchor="middle">مقياس المشروع 1 : 1 — جاهز للتعديل</text>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section id="how" class="how">
-    <div class="wrap">
-      <p class="section-eyebrow mono">01 · العملية</p>
-      <h2>ثلاث خطوات، ومشروعك أمامك</h2>
-      <div class="steps">
-        <div class="step">
-          <span class="step-num mono">01</span>
-          <h3>صف فكرتك بلغتك</h3>
-          <p>اكتب ما تريده كما تشرحه لصديق: "أريد تطبيق إدارة محل مواد بناء مع العملاء والمخزون والفواتير".</p>
-        </div>
-        <div class="step">
-          <span class="step-num mono">02</span>
-          <h3>المحرّك يحلّل ويبني</h3>
-          <p>يقترح هيكل التطبيق، ينشئ الصفحات، يصمّم الواجهة، ويكتب الأكواد اللازمة — كل ذلك خلف الكواليس.</p>
-        </div>
-        <div class="step">
-          <span class="step-num mono">03</span>
-          <h3>عاين، عدّل، صدّر</h3>
-          <p>جرّب التطبيق كما سيظهر للمستخدم، اطلب تعديلات بجملة عادية، ثم صدّر المشروع كملفات كاملة.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="features">
-    <div class="wrap">
-      <p class="section-eyebrow mono">02 · الإمكانيات</p>
-      <h2>كل ما يحتاجه المشروع، في مكان واحد</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h3>محرّك ذكاء اصطناعي</h3>
-          <p>يفهم طلباتك، يعدّل التطبيق حسب الأوامر، يضيف ميزات جديدة، ويصلح الأخطاء البرمجية تلقائيًا.</p>
-        </div>
-        <div class="feature-card">
-          <h3>مولّد واجهات UI</h3>
-          <p>تصميم حديث بألوان متناسقة، قوائم، أزرار، صفحات تسجيل دخول، ولوحات تحكم جاهزة.</p>
-        </div>
-        <div class="feature-card">
-          <h3>إدارة ملفات المشروع</h3>
-          <p>ينشئ HTML وCSS وJavaScript، وFlutter/Dart لتطبيقات أندرويد، وقواعد البيانات اللازمة — مع إمكانية التعديل وحفظ النسخ.</p>
-        </div>
-        <div class="feature-card">
-          <h3>معاينة وتجربة حية</h3>
-          <p>قبل التصدير، شاهد شكل التطبيق وجرّب وظائفه، واطلب تعديلات فورية من الذكاء الاصطناعي.</p>
-        </div>
-        <div class="feature-card feature-card-wide">
-          <h3>تصدير متعدد الصيغ</h3>
-          <p>احصل على ملفات المشروع كاملة، أو نسخة Web، أو نسخة PWA، ولاحقًا APK لأجهزة أندرويد.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXAMPLE -->
-  <section id="example" class="example">
-    <div class="wrap">
-      <p class="section-eyebrow mono">03 · مثال عملي</p>
-      <h2>"أنشئ تطبيق متابعة ديون العملاء للمحلات"</h2>
-      <p class="example-lede">جملة واحدة، فيبني Mahani Builder مشروعًا كاملاً بالشاشات والوظائف التالية:</p>
-
-      <div class="example-columns">
-        <div class="example-col">
-          <h4 class="mono">الشاشات</h4>
-          <ul class="chip-list">
-            <li>تسجيل الدخول</li>
-            <li>لوحة التحكم</li>
-            <li>العملاء</li>
-            <li>الديون</li>
-            <li>الدفعات</li>
-            <li>المخزون</li>
-            <li>التقارير</li>
-          </ul>
-        </div>
-        <div class="example-col">
-          <h4 class="mono">الوظائف</h4>
-          <ul class="chip-list chip-list-accent">
-            <li>إضافة عميل</li>
-            <li>تسجيل مبلغ دين</li>
-            <li>حساب المتبقي</li>
-            <li>إرسال تذكير</li>
-            <li>إنشاء تقرير</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VS ACODE -->
-  <section id="acode" class="acode">
-    <div class="wrap">
-      <p class="section-eyebrow mono">04 · التوضيح</p>
-      <h2>العقل، والمِطواة</h2>
-      <div class="compare">
-        <div class="compare-card compare-main">
-          <span class="compare-tag mono">Mahani Builder AI</span>
-          <p>العقل الذي يفهم فكرتك، يصمّم المشروع، وينشئ الملفات من الصفر.</p>
-        </div>
-        <div class="compare-plus mono">+</div>
-        <div class="compare-card">
-          <span class="compare-tag mono">Acode</span>
-          <p>محرر على الهاتف لفتح الملفات التي أُنشئت، وتعديلها، وتشغيلها.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="faq">
-    <div class="wrap">
-      <p class="section-eyebrow mono">05 · الأسئلة الشائعة</p>
-      <h2>أسئلة قد تدور في بالك</h2>
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary>هل يفهم المحرك أي جملة عربية حرة؟</summary>
-          <p>الإصدار الحالي يحلل الفكرة عبر كلمات مفتاحية شائعة (عملاء، مخزون، فواتير…) ويبني الهيكل المناسب تلقائيًا. كلما كان الوصف أوضح، كانت النتيجة أدق.</p>
-        </details>
-        <details class="faq-item">
-          <summary>هل أحتاج خبرة برمجية لاستخدامه؟</summary>
-          <p>لا. تكتب فكرتك بلغة طبيعية، والمشروع يُبنى جاهزًا. لتعديلات أعمق، الملفات الناتجة كود ويب قياسي يفهمه أي مبرمج لاحقًا.</p>
-        </details>
-        <details class="faq-item">
-          <summary>كيف أحصل على تطبيق أندرويد فعلي؟</summary>
-          <p>يُولَّد مشروع Flutter/Dart كامل مع ملف بناء تلقائي عبر GitHub Actions، يبني لك APK حقيقيًا قابلاً للتثبيت مجانًا خلال دقائق.</p>
-        </details>
-        <details class="faq-item">
-          <summary>هل بياناتي أو رمز GitHub الخاص بي يمر عبر خادم؟</summary>
-          <p>لا. الأداة بالكامل ملفات ثابتة تعمل من متصفحك، والاتصال بـ GitHub يتم مباشرة من جهازك إلى واجهة GitHub دون أي وسيط.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="cta" class="cta">
-    <div class="wrap cta-inner">
-      <h2>فكرتك التالية… جملة واحدة بعيدة.</h2>
-      <p>ابدأ بوصف بسيط، ودع Mahani Builder يتولى الباقي.</p>
-      <a href="workspace.html" class="btn btn-primary btn-large">اكتب فكرتك الآن</a>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <div class="wrap footer-grid">
-    <div class="footer-brand">
-      <div class="logo">
-        <span class="logo-mark">مب</span>
-        <span class="logo-text">Mahani <span class="dim">Builder</span></span>
-      </div>
-      <p class="footer-tagline">من فكرة منطوقة بالعربية إلى مشروع برمجي كامل.</p>
-    </div>
-
-    <div class="footer-col">
-      <h5 class="mono">الموقع</h5>
-      <a href="#how">كيف يعمل</a>
-      <a href="#features">الإمكانيات</a>
-      <a href="#example">مثال عملي</a>
-      <a href="#faq">الأسئلة الشائعة</a>
-    </div>
-
-    <div class="footer-col">
-      <h5 class="mono">الأداة</h5>
-      <a href="workspace.html">مساحة العمل</a>
-      <a href="#acode">مقابل Acode</a>
-    </div>
-  </div>
-
-  <div class="wrap footer-bottom">
-    <span class="mono dim">Mahani Builder AI — من الوصف إلى المشروع</span>
-    <span class="mono dim">صُمم لبنّائي الأفكار</span>
-  </div>
-</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
+الهدف النهائي هو إنشاء تطبيق احترافي، سريع، ومستقر، يعتمد على أحدث الممارسات في إدارة البيانات، ويجمع بين سهولة الاستخدام، والاستيراد الذكي، وإدارة العملاء والمخزون، والتنبيهات، والذكاء الاصطناعي، ليكون أداة عملية وموثوقة لإدارة المحل مع إمكانية تطويره وإضافة مزايا جديدة مستقبلاً دون الحاجة إلى إعادة بناء النظام</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px"><div class="card"><h4>العملاء</h4><div style="font-size:28px;color:#8b5cf6">0</div></div><div class="card"><h4>المخزون</h4><div style="font-size:28px;color:#8b5cf6">0</div></div><div class="card"><h4>الموردين</h4><div style="font-size:28px;color:#8b5cf6">0</div></div><div class="card"><h4>الفواتير</h4><div style="font-size:28px;color:#8b5cf6">0</div></div><div class="card"><h4>الديون</h4><div style="font-size:28px;color:#8b5cf6">0</div></div><div class="card"><h4>الدفعات</h4><div style="font-size:28px;color:#8b5cf6">0</div></div><div class="card"><h4>التقارير</h4><div style="font-size:28px;color:#8b5cf6">0</div></div></div></div>
+<div id="customers" class="view"><h2>العملاء</h2><div class="card"><button onclick="let n=prompt('الاسم'); if(n){let tb=document.querySelector('#tbl-customers tbody'); let tr=document.createElement('tr'); tr.innerHTML='<td>'+n+'</td><td>---</td>'; tb.appendChild(tr);}">+ إضافة</button><table id="tbl-customers" style="width:100%;margin-top:12px"><tbody></tbody></table></div></div><div id="inventory" class="view"><h2>المخزون</h2><div class="card"><button onclick="let n=prompt('الاسم'); if(n){let tb=document.querySelector('#tbl-inventory tbody'); let tr=document.createElement('tr'); tr.innerHTML='<td>'+n+'</td><td>---</td>'; tb.appendChild(tr);}">+ إضافة</button><table id="tbl-inventory" style="width:100%;margin-top:12px"><tbody></tbody></table></div></div><div id="suppliers" class="view"><h2>الموردين</h2><div class="card"><button onclick="let n=prompt('الاسم'); if(n){let tb=document.querySelector('#tbl-suppliers tbody'); let tr=document.createElement('tr'); tr.innerHTML='<td>'+n+'</td><td>---</td>'; tb.appendChild(tr);}">+ إضافة</button><table id="tbl-suppliers" style="width:100%;margin-top:12px"><tbody></tbody></table></div></div><div id="invoices" class="view"><h2>الفواتير</h2><div class="card"><button onclick="let n=prompt('الاسم'); if(n){let tb=document.querySelector('#tbl-invoices tbody'); let tr=document.createElement('tr'); tr.innerHTML='<td>'+n+'</td><td>---</td>'; tb.appendChild(tr);}">+ إضافة</button><table id="tbl-invoices" style="width:100%;margin-top:12px"><tbody></tbody></table></div></div><div id="debts" class="view"><h2>الديون</h2><div class="card"><button onclick="let n=prompt('الاسم'); if(n){let tb=document.querySelector('#tbl-debts tbody'); let tr=document.createElement('tr'); tr.innerHTML='<td>'+n+'</td><td>---</td>'; tb.appendChild(tr);}">+ إضافة</button><table id="tbl-debts" style="width:100%;margin-top:12px"><tbody></tbody></table></div></div><div id="payments" class="view"><h2>الدفعات</h2><div class="card"><button onclick="let n=prompt('الاسم'); if(n){let tb=document.querySelector('#tbl-payments tbody'); let tr=document.createElement('tr'); tr.innerHTML='<td>'+n+'</td><td>---</td>'; tb.appendChild(tr);}">+ إضافة</button><table id="tbl-payments" style="width:100%;margin-top:12px"><tbody></tbody></table></div></div><div id="reports" class="view"><h2>التقارير</h2><div class="card"><button onclick="let n=prompt('الاسم'); if(n){let tb=document.querySelector('#tbl-reports tbody'); let tr=document.createElement('tr'); tr.innerHTML='<td>'+n+'</td><td>---</td>'; tb.appendChild(tr);}">+ إضافة</button><table id="tbl-reports" style="width:100%;margin-top:12px"><tbody></tbody></table></div></div>
+<script>
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(b.dataset.t).classList.add('active');
+}));
+</script></body></html>
